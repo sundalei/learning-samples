@@ -1,0 +1,21 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+
+    implementation 'com.google.code.gson:gson:2.9.0'
+}
+
+application {
+    mainClass = 'com.javacreed.examples.gson.GsonDemo'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
