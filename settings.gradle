@@ -1,2 +1,3 @@
-rootProject.name = 'gson2'
+rootProject.name = 'learning-samples'
 include('gson-learning')
+include('datafaker-demo')

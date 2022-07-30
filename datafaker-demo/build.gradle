@@ -1,0 +1,21 @@
+plugins {
+    id 'application'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+
+    implementation 'net.datafaker:datafaker:1.5.0'
+}
+
+application {
+    mainClass = 'sample.Main'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}

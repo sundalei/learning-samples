@@ -6,7 +6,6 @@ import com.javacreed.examples.gson.part1.Book;
 import com.javacreed.examples.gson.part1.BookDeserializer;
 
 import java.io.*;
-import java.util.Properties;
 
 public class GsonDemo {
     
