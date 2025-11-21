@@ -2,7 +2,7 @@
 <properties>
   <entry key="dbms">mysql</entry>
   <entry key="driver">com.mysql.cj.jdbc.Driver</entry>
-  <entry key="database_name">sakila</entry>
+  <entry key="database_name">dalei</entry>
   <entry key="user_name">root</entry>
   <entry key="password">Fnst*1234</entry>
   <entry key="server_name">localhost</entry>

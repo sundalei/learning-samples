@@ -1,26 +1,41 @@
 package sample;
 
-import net.datafaker.Faker;
-
-import java.util.Locale;
+import java.io.InputStream;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Main {
-    
-    public static void main(String[] args) {
-        generate();
+
+  public static void main(String[] args) {
+    DBUtil dbUtil;
+    Connection connection = null;
+    InputStream inputStream;
+
+    try {
+      inputStream = Main.class.getResourceAsStream("/mysql-properties.xml");
+      dbUtil = new DBUtil(inputStream);
+    } catch (Exception e) {
+      System.err.print("Problem reading properties file.");
+      return;
     }
 
-    public static void generate() {
-        Faker faker = new Faker(Locale.CHINA);
+    try {
+      connection = dbUtil.getConnection();
+      MySQLSaver mySQLSaver = new MySQLSaver(connection, dbUtil.getDbms());
 
-        String name = faker.name().fullName();
-        String firstName = faker.name().firstName();
-        String lastName = faker.name().lastName();
-        String streetAddress = faker.address().fullAddress();
+      System.out.println("\nInserting a new row:");
+      for (int i = 0; i < 10; i++) {
+        mySQLSaver.insertTable(connection, DataUtil.generate());
+      }
+      System.out.println("\nsuccess");
 
-        System.out.println(name);
-        System.out.println(firstName);
-        System.out.println(lastName);
-        System.out.println(streetAddress);
+      System.out.println("\nContents of Customer table:");
+      mySQLSaver.viewTable(connection);
+
+    } catch (SQLException e) {
+      DBUtil.printSQLException(e);
+    } finally {
+      DBUtil.closeConnection(connection);
     }
+  }
 }
