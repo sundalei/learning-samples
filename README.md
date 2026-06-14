@@ -1,100 +1,60 @@
 # learning-samples
 
-> Small collection of Java learning samples: a DataFaker + MySQL demo and a Gson examples project.
+Small Java learning projects and experiments.
 
 ## Projects
 
-- `datafaker-demo` — Maven module demonstrating `net.datafaker` to generate fake `Customer` rows and persist them to MySQL. Includes a `docker-compose` to run a local MySQL instance and initialization SQL.
-- `gson-learning` — Gradle sample showing `gson` serialization/deserialization examples and a `GsonDemo` entrypoint.
+| Project | Topic | Build | Notes |
+| --- | --- | --- | --- |
+| `datafaker-demo` | DataFaker, MySQL, Docker Compose | Maven | Generates fake customer rows and inserts them into a local MySQL table. |
+| `httpclient-demo` | HTTP client examples | Maven | Placeholder module for HTTP client learning samples. |
 
 ## Requirements
 
-- Java 17 (project `maven-compiler-plugin` is configured with `release=17`).
-- Maven (for the root project and `datafaker-demo`).
-- Gradle (or the Gradle wrapper) for `gson-learning`.
-- Docker & Docker Compose (optional) to run the MySQL database used by `datafaker-demo`.
+- Java 17
+- Maven
+- Docker and Docker Compose for samples that need local services
 
-## datafaker-demo
+## Common Commands
 
-Location: `datafaker-demo`
-
-What it does:
-- Loads DB connection properties from `src/main/resources/mysql-properties.xml`.
-- Connects to a MySQL instance and inserts 10 generated `Customer` rows, then prints the table contents.
-
-Run with Docker Compose (recommended):
-
-1. Start MySQL:
-
-```bash
-cd datafaker-demo
-docker compose up -d
-```
-
-2. Build and run the demo with Maven (from repository root):
-
-```bash
-mvn -pl datafaker-demo -am compile exec:java -Dexec.mainClass=sample.Main
-```
-
-Notes:
-- The compose file exposes MySQL on port `3306` and initializes the `dalei` database using `init.sql`.
-- Default credentials are set in `datafaker-demo/src/main/resources/mysql-properties.xml` (user: `root`, password: `Fnst*1234`). Remove or change these for production use.
-
-Alternatively you can run the built JAR after packaging:
-
-```bash
-mvn -pl datafaker-demo package
-java -cp datafaker-demo/target/classes:$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.build.outputDirectory}' --non-recursive exec:exec) sample.Main
-```
-
-## gson-learning
-
-Location: `gson-learning`
-
-Run with Gradle:
-
-```bash
-cd gson-learning
-./gradlew run
-```
-
-Or build and run with Gradle installed:
-
-```bash
-gradle run
-```
-
-The demo reads `src/main/resources/book.json` in `GsonDemo` and prints serialization/deserialization examples.
-
-## Security / Credentials
-
-- `datafaker-demo/src/main/resources/mysql-properties.xml` currently contains a plaintext password. Do not commit real credentials; consider using environment variables or a secret manager for real projects.
-
-## Tests
-
-- The root POM configures JUnit Jupiter. Run tests with:
+Run all module tests:
 
 ```bash
 mvn test
 ```
 
-or for the Gradle sample:
+Run one module and any modules it depends on:
 
 ```bash
-cd gson-learning
-./gradlew test
+mvn -pl datafaker-demo -am test
 ```
 
-## Notes & Tips
-
-- If `docker compose up` fails due to port conflicts, stop any process using port `3306` or change the mapping in `datafaker-demo/compose.yaml`.
-- To inspect the MySQL container logs:
+Format all modules with Spotless:
 
 ```bash
-docker compose -f datafaker-demo/compose.yaml logs -f
+mvn spotless:apply
 ```
+
+## Maven Option Notes
+
+`mvn -pl datafaker-demo -am test` means:
+
+- `-pl datafaker-demo`: build only the selected project from the multi-module Maven reactor. `-pl` is short for `--projects`.
+- `-am`: also build any required upstream modules that the selected project depends on. `-am` is short for `--also-make`.
+- `test`: run Maven's test phase.
+
+In this repository, `datafaker-demo` is listed in the root `pom.xml`, so this command runs tests for that module without running every sample project.
+
+## Documentation Pattern
+
+Keep this root README as a catalog. Add or update one row in `Projects` whenever a sample is added, renamed, or removed.
+
+Put detailed setup notes inside each sample folder when the project has its own runtime, service, credentials, example output, or troubleshooting steps.
+
+## Security
+
+These are learning samples. Do not commit real credentials. Demo-only credentials may appear in local configuration files when they are needed to keep a sample runnable.
 
 ## License
 
-This repository contains small examples for learning purposes. No license file is included.
+No license file is included.
