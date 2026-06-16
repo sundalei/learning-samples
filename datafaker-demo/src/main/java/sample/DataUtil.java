@@ -1,9 +1,8 @@
 package sample;
 
+import java.util.Locale;
 import net.datafaker.Faker;
 import net.datafaker.providers.base.Name;
-
-import java.util.Locale;
 
 public class DataUtil {
 

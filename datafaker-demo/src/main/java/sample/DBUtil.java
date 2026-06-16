@@ -1,7 +1,6 @@
 package sample;
 
 import com.mysql.cj.jdbc.Driver;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
@@ -19,13 +18,11 @@ public class DBUtil {
   private String serverName;
   private int port;
 
-  public DBUtil(InputStream inputStream)
-      throws IOException {
+  public DBUtil(InputStream inputStream) throws IOException {
     this.setProperties(inputStream);
   }
 
-  private void setProperties(InputStream inputStream)
-      throws IOException {
+  private void setProperties(InputStream inputStream) throws IOException {
 
     Properties properties = new Properties();
     properties.loadFromXML(inputStream);
