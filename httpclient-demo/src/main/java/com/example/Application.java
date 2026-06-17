@@ -3,6 +3,8 @@ package com.example;
 import java.io.IOException;
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.core5.http.ClassicHttpRequest;
+import org.apache.hc.core5.http.HttpEntity;
+import org.apache.hc.core5.http.io.entity.EntityUtils;
 import org.apache.hc.core5.http.io.support.ClassicRequestBuilder;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,6 +29,9 @@ public class Application {
           httpGet,
           response -> {
             logger.info("{} {}", response.getCode(), response.getReasonPhrase());
+            final HttpEntity entity = response.getEntity();
+            logger.info("Response");
+            logger.info("{}", EntityUtils.toString(entity));
             return null;
           });
     } catch (IOException e) {
