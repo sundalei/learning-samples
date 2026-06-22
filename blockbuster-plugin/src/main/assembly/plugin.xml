@@ -8,15 +8,23 @@
 
   <includeBaseDirectory>false</includeBaseDirectory>
 
-  <files>
-    <file>
-      <source>${project.build.directory}/${project.build.finalName}.jar</source>
+  <dependencySets>
+    <dependencySet>
       <outputDirectory>/</outputDirectory>
-    </file>
-    <file>
-      <source>${project.basedir}/src/main/resources/plugin-descriptor.properties</source>
+      <useProjectArtifact>true</useProjectArtifact>
+      <useTransitiveDependencies>true</useTransitiveDependencies>
+      <scope>runtime</scope>
+    </dependencySet>
+  </dependencySets>
+
+  <fileSets>
+    <fileSet>
+      <directory>${project.basedir}/src/main/resources</directory>
       <outputDirectory>/</outputDirectory>
-    </file>
-  </files>
+      <includes>
+        <include>plugin-descriptor.properties</include>
+      </includes>
+    </fileSet>
+  </fileSets>
 
 </assembly>
