@@ -24,7 +24,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-assembly-plugin</artifactId>
-        <version>3.7.1</version>
+        <version>${maven.assembly.version}</version>
         <executions>
           <execution>
             <id>package-plugin</id>
@@ -34,7 +34,7 @@
             <phase>package</phase>
             <configuration>
               <descriptors>
-                <descriptor>src/assembly/plugin.xml</descriptor>
+                <descriptor>${project.basedir}/src/main/assembly/plugin.xml</descriptor>
               </descriptors>
             </configuration>
           </execution>

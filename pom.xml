@@ -20,6 +20,7 @@
     <junit.version>5.14.1</junit.version>
     <maven.compiler.version>3.14.1</maven.compiler.version>
     <maven.surefire.version>3.5.4</maven.surefire.version>
+    <maven.assembly.version>3.8.0</maven.assembly.version>
     <datafaker.version>2.5.3</datafaker.version>
     <mysql.version>9.5.0</mysql.version>
     <spotless.version>3.6.0</spotless.version>
